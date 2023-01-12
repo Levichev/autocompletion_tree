@@ -5,10 +5,23 @@ from token_id_generator import TokenIdGenerator
 
 
 def train(path, func, max_file_count=100, max_tokens=10):
+    """
+    function for model training.
+    Takes the path to the folder with the java projects, recursively traverses each .java file, and
+    performs the model training function for it
+    :param path: str
+    :param func: function
+    :param max_file_count: int
+        number of training files
+    :param max_tokens: int
+        the maximum number of consecutive tokens that are written to the tree
+    :return: dict
+        {"id_generator": id_generator, "root_node": root_node}
+    """
     root_node = TreeNode("")
+    id_generator = TokenIdGenerator()
 
     cnt = 0
-    id_generator = TokenIdGenerator()
     for root, dirs, files in os.walk(path):
         for file in files:
             if file.endswith('.java'):
@@ -24,6 +37,19 @@ def train(path, func, max_file_count=100, max_tokens=10):
 
 
 def train_for_count_test(path, func, max_file_count, max_tokens):
+    """
+    Model training function to optimally save the model for a different number of files.
+    Takes the path to the folder with the java projects, recursively traverses each .java file and
+    performs the model training function for it
+
+    :param path: str
+    :param func: function
+    :param max_file_count: list
+    :param max_tokens: int
+        the maximum number of consecutive tokens that are written to the tree
+    :return:
+        {"id_generator": id_generator, "root_node": root_node}
+    """
     root_node = TreeNode("")
     id_generator = TokenIdGenerator()
 

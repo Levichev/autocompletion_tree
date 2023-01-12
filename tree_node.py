@@ -8,6 +8,13 @@ class TreeNode:
         self.children = {}
     
     def write_branch_to_tree(self, tokens, id_generator):
+        """
+        Adds tree paths and counter updates
+        :param tokens: dict
+            {"value": value, "type": type}
+        :param id_generator: TokenIdGenerator
+        :return: None
+        """
         current_node = self
         for token in tokens:
             id_token = id_generator.get_id_by_token(token)
@@ -20,11 +27,21 @@ class TreeNode:
                 current_node = new_node
 
     def load(self, path):
+        """
+        Loading the tree with Pickle
+        :param path: str
+        :return: TreeNode
+        """
         with open(path, "rb") as f:
             data = pickle.load(f)
         self.__dict__.update(data.__dict__)
         return self
 
     def dump(self, path):
+        """
+        Saving the tree with Pickle
+        :param path: str
+        :return: None
+        """
         with open(path, "wb") as f:
             pickle.dump(self, f)
